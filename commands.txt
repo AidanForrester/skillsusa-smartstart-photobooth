@@ -1,0 +1,14 @@
+tmux new -s skills
+
+source nanolabenv/bin/activate
+cd SkillsUSA_SmartStart_Photobooth
+python3 photoboothlaunch.py
+
+Ctrl+B then %
+
+sudo sysctl -w net.core.rmem_max=16777216
+sudo sysctl -w net.core.wmem_max=16777216
+mkdir -p ~/.cloudflared
+touch ~/.cloudflared/cert.pem
+export TUNNEL_ORIGIN_CERT=~/.cloudflared/cert.pem
+cloudflared tunnel --url http://localhost:8000 --no-autoupdate
