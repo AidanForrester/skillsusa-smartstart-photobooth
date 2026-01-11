@@ -3,12 +3,10 @@ import digitalio
 import time
 import cv2
 import numpy as np
+import subprocess
 
 buzzer = digitalio.DigitalInOut(board.D18)
 buzzer.direction = digitalio.Direction.OUTPUT
-rotbutton = digitalio.DigitalInOut(board.D19)
-rotbutton.direction = digitalio.Direction.INPUT
-rotbutton.pull = digitalio.Pull.UP
 
 g = digitalio.DigitalInOut(board.D21)
 g.direction = digitalio.Direction.OUTPUT
@@ -26,31 +24,26 @@ imgframe = cv2.imread("frame.jpg")
 
 camera = cv2.VideoCapture(0)
 
-while True:
-    if not rotbutton.value:
-        r.value = True
+if True == True:
+        g.value = True
         for buzz1 in range(200):
             buzzer.value = True
             time.sleep((1/320)/2)
             buzzer.value = False
             time.sleep((1/320)/2)
-        g.value = True
-        b.value = True
+        r.value = True
         for buzz2 in range(200):
             buzzer.value = True
             time.sleep((1/420)/2)
             buzzer.value = False
             time.sleep((1/420)/2)
-
-        r.value = False
-        g.value = False
+        b.value = True
         for buzz3 in range(200):
             buzzer.value = True
             time.sleep((1/520)/2)
             buzzer.value = False
             time.sleep((1/520)/2)
-        r.value = True
-        g.value = True
+
         ret, frame = camera.read()
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         bg = cv2.imread("bg.jpg")
@@ -65,6 +58,6 @@ while True:
         roi = imgframe[40:41+562, 41:843+121]
         imgframe[41:562-41, 41:722-41] = frame
         cv2.imwrite("skills.jpg", imgframe)
-        break
-        #starts at 83,84
-
+#        file_path = "skills.jpg"
+#        subprocess.run(["lpr", file_path], check=True)
+        
